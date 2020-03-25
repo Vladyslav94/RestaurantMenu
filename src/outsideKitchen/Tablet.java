@@ -1,6 +1,7 @@
 package outsideKitchen;
 
 import ad.AdvertisementManager;
+import ad.NoVideoAvailableException;
 import kitchen.Order;
 
 import java.io.IOException;
@@ -29,9 +30,14 @@ public class Tablet extends Observable {
             logger.log(Level.SEVERE, "Console is unavailable.");
         }
 
-        assert order != null;
-        AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime()*60);
-        advertisementManager.processVideos();
+        AdvertisementManager advertisementManager = null;
+        try{
+            assert order != null;
+            advertisementManager = new AdvertisementManager(order.getTotalCookingTime()*60);
+            advertisementManager.processVideos();
+        } catch (NoVideoAvailableException e){
+            logger.log(Level.INFO, "No video is available for the order " + order);
+        }
 
         return order;
     }
