@@ -16,6 +16,26 @@ public class Order {
 
     }
 
+    public boolean isEmpty(){
+        return dishes.isEmpty();
+    }
+
+    public int getTotalCookingTime(){
+        int time = 0;
+        if(dishes.contains(Dish.Fish))
+            time += 25;
+        if(dishes.contains(Dish.Steak))
+            time += 30;
+        if(dishes.contains(Dish.Soup))
+            time += 15;
+        if(dishes.contains(Dish.Juice))
+            time += 5;
+        if (dishes.contains(Dish.Water))
+            time += 3;
+
+        return time;
+    }
+
     @Override
     public String toString() {
         if(dishes.isEmpty()){
@@ -24,4 +44,5 @@ public class Order {
         return "Your order: " + dishes.toString() + " of " + tablet.toString();
     }
 }
+
 
